@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex Viewer</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1><img src="pokeball.png" height="30px">   Pokédex</h1>
+      <div class="search-box">
+        <input
+          type="number"
+          id="pokedexInput"
+          placeholder="Enter Pokedex Number"
+        >
+        <button id="btn">Search</button>
+        
+      </div>
+      <div class="pokemon-card" id="pokemonCard">
+        <h2 id="h2pk"></h2>
+        <div id="ooop"></div>
+        <div id="type"></div>
+      </div>
+    </div>
+
+    
+  </body>
+  <script>
+    const apikey ="https://pokeapi.co/api/v2/pokemon/";
+    const pokedexNumber=document.getElementById('pokedexInput');
+    const butt=document.getElementById('btn');
+    
+    async function pokemon(pokedexNumber){
+      const response=await fetch(apikey + pokedexNumber);
+      var data =await response.json();
+      console.log(data);
+      document.getElementById('h2pk').innerText=data.name.toUpperCase();
+      document.getElementById('ooop').innerHTML=`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokedexNumber}.png" />`
+      document.getElementById('type').innerText=`Type: ${data.types[0].type.name.toUpperCase()}`
+      document.getElementById('pokemonCard').style.display='block'
+      
+    }
+    butt.addEventListener('click',()=>{
+      pokemon(pokedexNumber.value);
+      
+    })
+   
+
+
+
+  </script>
+</html>
